@@ -1,0 +1,7 @@
+<p>number one: {{(state$ | async).firstNumber}}</p> 
+<input #firstNumber type="number" (keyup.enter)="updateFirstNumber(firstNumber.value)"/>
+<p>number two: {{(state$ | async).secondNumber}}</p>
+<input #secondNumber type="number" (keyup.enter)="updateSecondNumber(secondNumber.value)"/>
+<p>operation: {{(state$ | async).operation}}</p>
+
+<button (click)="updateFromServer()"> update from server!</button>
