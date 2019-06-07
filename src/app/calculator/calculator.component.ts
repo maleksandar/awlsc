@@ -29,4 +29,17 @@ export class CalculatorComponent implements OnInit {
     console.log('updating secondNumber to ', value);
     this.calculatorStateService.enterSecondNumber(value);
   }
+
+  get result(): number {
+    const { firstNumber, secondNumber, operation } = this.calculatorStateService.state;
+    if (operation === '*') {
+      return firstNumber * secondNumber;
+    } else if (operation === '+') {
+      return firstNumber + secondNumber;
+    } else if (operation === '-') {
+      return firstNumber - secondNumber;
+    } else {
+      return NaN;
+    }
+  }
 }
