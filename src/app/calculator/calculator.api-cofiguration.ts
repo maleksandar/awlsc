@@ -15,7 +15,7 @@ export class CalculatorConfigService {
     public resources: Resources = {
         dataEndpoint: {
             baseUrl: 'https://calculator.com/api',
-            cachingPeriod: 5000
+            cachingPeriod: 10000
         }
     };
 

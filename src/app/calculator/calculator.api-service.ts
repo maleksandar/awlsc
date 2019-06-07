@@ -6,36 +6,39 @@ import store from 'store';
 @Injectable({ providedIn: 'root' })
 export class CalculatorApiService {
 
-    private lastUpdatedTimestamp: number;
+    // private lastUpdatedTimestamp: number;
+    private store: StoreJsAPI;
     constructor(
         private apiConfig: CalculatorConfigService,
-        private http: MockHttpService<CalculatorModel>
+        private http: MockHttpService
     ) {
-            this.lastUpdatedTimestamp = 0;
+            // this.lastUpdatedTimestamp = 0;
 
             // for demo purpose only we set the default http response from mocked service
+            this.store = store;
             this.http.setDefaultResponse({ firstNumber: 1, secondNumber: 2, operation: '*'});
     }
 
     public async requestData(endpoint: string): Promise<CalculatorModel> {
         // tslint:disable-next-line:no-string-literal
-        const baseUrl = this.apiConfig.resources[endpoint].baseUrl;
-        const localData = store.get(baseUrl);
+        const url = this.apiConfig.urlResolvers[endpoint]('1234');
+        const localData = this.store.get(url);
 
-        if (localData && !this.shouldUpdate(endpoint)) {
+        if (localData && !this.shouldUpdate(endpoint, url)) {
             console.log('Getting cached data');
             return localData as CalculatorModel;
         } else {
-            const serverData = await this.http.get(baseUrl);
+            const serverData = await this.http.get(url);
             // map serverResponse to storageData here!
-            store.set(baseUrl, serverData);
-            this.lastUpdatedTimestamp = this.getUnixTimestamp();
+            this.store.set(url, serverData);
+            this.store.set(`${url}_updateTime`, this.getUnixTimestamp());
             return serverData;
         }
     }
 
-    private shouldUpdate(endpoint): boolean {
-        return (this.getUnixTimestamp() - this.lastUpdatedTimestamp)
+    private shouldUpdate(endpoint, resolvedUrl: string): boolean {
+        const lastTimeUpdated = this.store.get(`${resolvedUrl}_updateTime`);
+        return !lastTimeUpdated || (this.getUnixTimestamp() - this.store.get(`${resolvedUrl}_updateTime`))
             > this.apiConfig.resources[endpoint].cachingPeriod;
     }
 
