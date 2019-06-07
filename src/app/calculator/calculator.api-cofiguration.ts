@@ -1,10 +1,25 @@
 import { Injectable } from '@angular/core';
 
+interface DataEndpointConfiguration {
+    readonly baseUrl: string;
+    readonly cachingPeriod: number;
+}
+
+interface Resources { [key: string]: DataEndpointConfiguration; }
+
 @Injectable({ providedIn: 'root' })
 export class CalculatorConfigService {
     constructor() {
     }
 
-    readonly baseUrl = 'https://calculator.com/api';
-    readonly cachingPeriod = 5000;
+    public resources: Resources = {
+        dataEndpoint: {
+            baseUrl: 'https://calculator.com/api',
+            cachingPeriod: 5000
+        }
+    };
+
+    public urlResolvers = {
+        dataEndpoint: (userId: string) => `${this.resources.dataEndpoint.baseUrl}/${userId}`
+    };
 }

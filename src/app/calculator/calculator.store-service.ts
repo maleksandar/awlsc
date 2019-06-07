@@ -43,7 +43,8 @@ export class CalculatorStoreService extends Store<CalculatorModel> {
     }
 
     async updateStateFromTheServer() {
-        const serverResponse = await this.api.requestData(this.config.baseUrl);
+        const endpoint = 'dataEndpoint';
+        const serverResponse = await this.api.requestData(endpoint);
         this.setState(serverResponse);
     }
 }
