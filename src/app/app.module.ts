@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { CalculatorApiService } from './calculator/calculator.api-service';
-import { CalculatorStoreService } from './calculator/calculator.store-service';
+import { CalculatorStateService } from './calculator/calculator.state-service';
 import { CalculatorConfigService } from './calculator/calculator.api-cofiguration';
 import { MockHttpService } from './calculator/mockHttp.service';
 
@@ -18,7 +18,7 @@ import { MockHttpService } from './calculator/mockHttp.service';
   ],
   providers: [
     CalculatorApiService,
-    CalculatorStoreService,
+    CalculatorStateService,
     CalculatorConfigService,
     MockHttpService
   ],

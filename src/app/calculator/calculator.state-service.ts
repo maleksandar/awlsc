@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 
 class Store<T> {
     state$: Observable<T>;
+
     // tslint:disable-next-line:variable-name
     private _state$: BehaviorSubject<T>;
 
@@ -24,10 +25,9 @@ class Store<T> {
 }
 
 @Injectable({ providedIn: 'root' })
-export class CalculatorStoreService extends Store<CalculatorModel> {
+export class CalculatorStateService extends Store<CalculatorModel> {
     constructor(
-        private api: CalculatorApiService,
-        private config: CalculatorConfigService
+        private api: CalculatorApiService
     ) {
         super({ firstNumber: 0, secondNumber: 0, operation: '+' });
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CalculatorStoreService } from './calculator.store-service';
+import { CalculatorStateService } from './calculator.state-service';
 
 @Component({
   selector: 'app-calculator',
@@ -7,26 +7,26 @@ import { CalculatorStoreService } from './calculator.store-service';
   styleUrls: ['./calculator.component.scss']
 })
 export class CalculatorComponent implements OnInit {
-  private readonly state$ = this.calculatorStoreService.state$;
+  private readonly state$ = this.calculatorStateService.state$;
 
   ngOnInit(): void {
   }
 
-  constructor(private calculatorStoreService: CalculatorStoreService) {
+  constructor(private calculatorStateService: CalculatorStateService) {
 
   }
 
   updateFromServer() {
-    this.calculatorStoreService.updateStateFromTheServer();
+    this.calculatorStateService.updateStateFromTheServer();
   }
 
   updateFirstNumber(value) {
     console.log('updating firstNumber to ', value);
-    this.calculatorStoreService.enterFirstNumber(value);
+    this.calculatorStateService.enterFirstNumber(value);
   }
 
   updateSecondNumber(value) {
     console.log('updating secondNumber to ', value);
-    this.calculatorStoreService.enterSecondNumber(value);
+    this.calculatorStateService.enterSecondNumber(value);
   }
 }
