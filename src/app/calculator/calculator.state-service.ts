@@ -1,13 +1,11 @@
 import { CalculatorApiService } from './calculator.api-service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { CalculatorModel } from './calculator.model';
-import { CalculatorConfigService } from './calculator.api-cofiguration';
 import { Injectable } from '@angular/core';
 
 class Store<T> {
     state$: Observable<T>;
 
-    // tslint:disable-next-line:variable-name
     private _state$: BehaviorSubject<T>;
 
     protected constructor(initialState: T) {

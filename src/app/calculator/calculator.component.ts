@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CalculatorStateService } from './calculator.state-service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CalculatorModel } from './calculator.model';
+
 
 @Component({
   selector: 'app-calculator',
@@ -7,7 +11,11 @@ import { CalculatorStateService } from './calculator.state-service';
   styleUrls: ['./calculator.component.scss']
 })
 export class CalculatorComponent implements OnInit {
-  private readonly state$ = this.calculatorStateService.state$;
+  private readonly state$: Observable<CalculatorModel> = this.calculatorStateService.state$;
+  public readonly firstNumber = this.state$.pipe(map(state => state.firstNumber));
+  public readonly secondNumber = this.state$.pipe(map(state => state.secondNumber));
+  public readonly operation = this.state$.pipe(map(state => state.operation));
+
 
   ngOnInit(): void {
   }
@@ -20,12 +28,12 @@ export class CalculatorComponent implements OnInit {
     this.calculatorStateService.updateStateFromTheServer();
   }
 
-  updateFirstNumber(value) {
+  updateFirstNumber(value: number) {
     console.log('updating firstNumber to ', value);
     this.calculatorStateService.enterFirstNumber(value);
   }
 
-  updateSecondNumber(value) {
+  updateSecondNumber(value: number) {
     console.log('updating secondNumber to ', value);
     this.calculatorStateService.enterSecondNumber(value);
   }

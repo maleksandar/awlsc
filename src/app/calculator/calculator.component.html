@@ -1,23 +1,34 @@
-<p>number one: {{(state$ | async).firstNumber}}</p>
-<input #firstNumber type="number"
-    (keyup.enter)="updateFirstNumber(firstNumber.value)"
-    [value]="(state$ | async).firstNumber"
+
+<i> Values are updated on 'enter' key press! </i>
+
+<br><br><br>
+
+<p>number one: {{ firstNumber | async }}</p>
+<input #firstIput type="number"
+    (keyup.enter)="updateFirstNumber(firstIput.value)"
+    [value]="firstNumber | async"
 />
 
 <hr/>
 
-<p>number two: {{(state$ | async).secondNumber}}</p>
-<input #secondNumber type="number"
-(keyup.enter)="updateSecondNumber(secondNumber.value)"
-[value]="(state$ | async).secondNumber"
+<p>number two: {{ secondNumber | async }}</p>
+<input #secondInput type="number"
+(keyup.enter)="updateSecondNumber(secondInput.value)"
+[value]="secondNumber | async"
 />
 
 <hr/>
 
-<p>operation: {{(state$ | async).operation}}</p>
+<p>operation: {{ operation | async  }}</p>
 
-result: {{result}}
+result: {{ result }}
 
 <hr/>
 
 <button (click)="updateFromServer()"> update from server!</button>
+
+<br><br><br>
+
+<i>
+    Open console to see the messages!
+</i>
